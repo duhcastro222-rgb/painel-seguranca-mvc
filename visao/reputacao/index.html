@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reputação de IPs — Painel de Segurança</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/estilos.css" />
+</head>
+<body data-app="reputacao" data-depth="1">
+
+  <main class="pagina">
+    <section class="cabecalho-pagina">
+      <h1>Reputação de IPs</h1>
+    </section>
+
+    <section class="painel">
+      <form id="form-ips" novalidate>
+        <div class="campo">
+          <label for="ips">IPs (um por linha, até 30)</label>
+          <textarea id="ips" spellcheck="false"></textarea>
+        </div>
+        <div class="acoes">
+          <button type="submit" class="btn btn--primario" id="btn-verificar">Verificar reputação</button>
+          <button type="button" class="btn btn--fantasma" id="btn-limpar-cache">Limpar cache</button>
+        </div>
+        <div class="mensagem" id="msg-ips" role="status"></div>
+      </form>
+    </section>
+
+    <section class="painel">
+      <div class="painel__titulo">
+        <div>
+          <h2>Relatório consolidado</h2>
+          <p id="info-relatorio">Nenhuma verificação feita ainda.</p>
+        </div>
+      </div>
+      <div class="estatisticas">
+        <div class="tile tile--critica"><div class="tile__valor" id="stat-ALTO">0</div><div class="tile__rotulo">risco alto</div></div>
+        <div class="tile tile--media"><div class="tile__valor" id="stat-MEDIO">0</div><div class="tile__rotulo">risco médio</div></div>
+        <div class="tile tile--baixa"><div class="tile__valor" id="stat-BAIXO">0</div><div class="tile__rotulo">risco baixo</div></div>
+        <div class="tile"><div class="tile__valor" id="stat-INVALIDO">0</div><div class="tile__rotulo">inválidos / erro</div></div>
+      </div>
+      <div class="tabela-wrap">
+        <table class="tabela">
+          <thead><tr><th>IP</th><th>Risco</th><th>Motivo</th><th>País</th><th>Provedor</th><th>Origem</th></tr></thead>
+          <tbody id="corpo-ips"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="../assets/componentes.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,506 @@
+/* =========================================================================
+   Estilos compartilhados por todas as telas (vindos das interfaces-web)
+   ========================================================================= */
+
+:root {
+  /* base clara: branco + lavanda bem suave */
+  --void: #F6F3FA;
+  --panel: #FFFFFF;
+  --panel-2: #F3EDFA;
+  --line: #E4DAF0;
+  --line-forte: #CBB8E2;
+
+  --ink: #1E1430;
+  --muted: #5D5370;
+  --muted-2: #7D7390;
+
+  /* sinal interativo (marca/foco/links) */
+  --sinal: #820AD1;
+  --sinal-escuro: #5A0791;
+
+  /* rampa semântica de severidade — o coração do sistema */
+  --sev-baixa: #1E8449;
+  --sev-media: #9A6400;
+  --sev-alta: #C0500E;
+  --sev-critica: #C62828;
+
+  --raio: 6px;
+  --raio-g: 10px;
+  --gap: 20px;
+  --topo: 122px; /* altura do cabeçalho + nav, usada pra compensar o fixed */
+
+  --fonte-titulo: "Space Grotesk", system-ui, sans-serif;
+  --fonte-corpo: "IBM Plex Sans", system-ui, sans-serif;
+  --fonte-dado: "IBM Plex Mono", ui-monospace, "Courier New", monospace;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(1100px 520px at 85% -10%, rgba(130, 10, 209, 0.07), transparent 60%),
+    var(--void);
+  color: var(--ink);
+  font-family: var(--fonte-corpo);
+  font-size: 16px;
+  line-height: 1.55;
+  min-height: 100vh;
+  padding-top: var(--topo);
+}
+
+@media (max-width: 720px) {
+  body { padding-top: 158px; }
+}
+
+/* ---------- Tipografia ---------- */
+h1, h2, h3 {
+  font-family: var(--fonte-titulo);
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+h1 { font-size: clamp(1.7rem, 3.5vw, 2.5rem); }
+h2 { font-size: 1.3rem; }
+h3 { font-size: 1.05rem; }
+
+a { color: var(--sinal); }
+
+.dado { font-family: var(--fonte-dado); font-feature-settings: "tnum" 1; }
+
+/* =========================================================================
+   Cabeçalho + navegação (componente injetado por componentes.js)
+   ========================================================================= */
+.topo {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+
+.topo__barra {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--ink);
+}
+.marca__glifo {
+  width: 34px; height: 34px;
+  flex: 0 0 auto;
+  border-radius: 8px;
+  background: linear-gradient(145deg, var(--sinal), var(--sinal-escuro));
+  display: grid; place-items: center;
+  color: #FFFFFF;
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
+  font-size: 1.05rem;
+  box-shadow: 0 0 0 1px rgba(130, 10, 209, 0.3), 0 6px 18px rgba(130, 10, 209, 0.2);
+}
+.marca__nome { font-family: var(--fonte-titulo); font-weight: 600; font-size: 1.02rem; }
+.marca__sub { display: block; font-size: 0.72rem; color: var(--muted-2); letter-spacing: 0.02em; }
+
+.status-chip {
+  margin-left: auto;
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--fonte-dado);
+  font-size: 0.78rem;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  padding: 5px 12px;
+  white-space: nowrap;
+}
+.status-chip__pulso {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--sev-baixa);
+  box-shadow: 0 0 0 0 rgba(79, 180, 119, 0.6);
+  animation: pulso 2.4s ease-out infinite;
+}
+@keyframes pulso {
+  0% { box-shadow: 0 0 0 0 rgba(79, 180, 119, 0.55); }
+  70% { box-shadow: 0 0 0 7px rgba(79, 180, 119, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(79, 180, 119, 0); }
+}
+
+.nav {
+  border-top: 1px solid var(--line);
+  background: rgba(243, 237, 250, 0.7);
+}
+.nav__lista {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  gap: 2px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+.nav__item {
+  flex: 0 0 auto;
+  padding: 12px 14px;
+  font-size: 0.86rem;
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: color 0.15s, border-color 0.15s;
+}
+.nav__item:hover { color: var(--ink); }
+.nav__item[aria-current="page"] {
+  color: var(--ink);
+  border-bottom-color: var(--sinal);
+}
+
+/* =========================================================================
+   Estrutura de página
+   ========================================================================= */
+.pagina {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+.cabecalho-pagina { margin-bottom: 30px; }
+.cabecalho-pagina p { color: var(--muted); margin: 12px 0 0; }
+
+/* painel = superfície reutilizável */
+.painel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--raio-g);
+  padding: 22px;
+}
+.painel + .painel { margin-top: var(--gap); }
+.painel__titulo {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.painel__titulo p { color: var(--muted); font-size: 0.9rem; margin: 4px 0 0; }
+
+.grade {
+  display: grid;
+  gap: var(--gap);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+/* =========================================================================
+   Stat tiles (números de topo)
+   ========================================================================= */
+.estatisticas {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  margin-bottom: var(--gap);
+}
+.tile {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--line-forte);
+  border-radius: var(--raio);
+  padding: 16px 18px;
+}
+.tile__valor {
+  font-family: var(--fonte-titulo);
+  font-size: 2rem;
+  font-weight: 600;
+  font-feature-settings: "tnum" 1;
+  line-height: 1;
+}
+.tile__rotulo { color: var(--muted); font-size: 0.85rem; margin-top: 6px; }
+.tile--baixa { border-left-color: var(--sev-baixa); }
+.tile--media { border-left-color: var(--sev-media); }
+.tile--alta { border-left-color: var(--sev-alta); }
+.tile--critica { border-left-color: var(--sev-critica); }
+.tile--sinal { border-left-color: var(--sinal); }
+
+/* =========================================================================
+   Badges de severidade / status (mesma linguagem em todas as telas)
+   ========================================================================= */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.76rem;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 100px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.badge::before {
+  content: "";
+  width: 7px; height: 7px; border-radius: 50%;
+  background: currentColor;
+}
+.badge--baixa   { color: var(--sev-baixa);   background: rgba(79, 180, 119, 0.12); border-color: rgba(79, 180, 119, 0.3); }
+.badge--media   { color: var(--sev-media);   background: rgba(224, 179, 65, 0.12); border-color: rgba(224, 179, 65, 0.3); }
+.badge--alta    { color: var(--sev-alta);    background: rgba(232, 130, 60, 0.12); border-color: rgba(232, 130, 60, 0.3); }
+.badge--critica { color: var(--sev-critica); background: rgba(229, 72, 77, 0.14);  border-color: rgba(229, 72, 77, 0.35); }
+.badge--neutro  { color: var(--muted);       background: rgba(93, 83, 112, 0.08); border-color: var(--line); }
+.badge--ok      { color: var(--sev-baixa);   background: rgba(79, 180, 119, 0.12); border-color: rgba(79, 180, 119, 0.3); }
+.badge--info    { color: var(--sinal);       background: rgba(130, 10, 209, 0.1);  border-color: rgba(130, 10, 209, 0.3); }
+
+/* =========================================================================
+   Tabelas (padrão único reaproveitado)
+   ========================================================================= */
+.tabela-wrap { overflow-x: auto; border-radius: var(--raio); border: 1px solid var(--line); }
+table.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  min-width: 560px;
+}
+.tabela thead th {
+  text-align: left;
+  font-weight: 500;
+  font-size: 0.78rem;
+  color: var(--muted);
+  padding: 12px 16px;
+  background: var(--panel-2);
+  border-bottom: 1px solid var(--line);
+  position: sticky; top: 0;
+}
+.tabela tbody td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+}
+.tabela tbody tr:last-child td { border-bottom: none; }
+.tabela tbody tr:hover { background: rgba(130, 10, 209, 0.04); }
+.tabela .col-num { text-align: right; font-family: var(--fonte-dado); }
+.tabela .vazio td {
+  text-align: center;
+  color: var(--muted-2);
+  padding: 30px 16px;
+  font-style: italic;
+}
+.tabela tbody tr:hover .vazio { background: none; }
+
+/* =========================================================================
+   Formulários (padrão único reaproveitado)
+   ========================================================================= */
+.form-grade {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+.campo { display: flex; flex-direction: column; gap: 6px; }
+.campo label { font-size: 0.85rem; color: var(--muted); }
+.campo input,
+.campo select {
+  font-family: var(--fonte-corpo);
+  font-size: 0.95rem;
+  color: var(--ink);
+  background: var(--void);
+  border: 1px solid var(--line);
+  border-radius: var(--raio);
+  padding: 10px 12px;
+  width: 100%;
+}
+.campo input::placeholder { color: var(--muted-2); }
+.campo input:focus,
+.campo select:focus {
+  outline: none;
+  border-color: var(--sinal);
+  box-shadow: 0 0 0 3px rgba(130, 10, 209, 0.15);
+}
+.campo select { appearance: none; cursor: pointer; }
+
+.barra-controles {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  margin-bottom: 18px;
+}
+.barra-controles .campo { flex: 1 1 180px; }
+
+/* =========================================================================
+   Botões
+   ========================================================================= */
+.btn {
+  font-family: var(--fonte-corpo);
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 10px 18px;
+  border-radius: var(--raio);
+  border: 1px solid var(--line-forte);
+  background: var(--panel-2);
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, transform 0.05s;
+}
+.btn:hover { border-color: var(--sinal); }
+.btn:active { transform: translateY(1px); }
+.btn--primario {
+  background: var(--sinal);
+  border-color: var(--sinal);
+  color: #FFFFFF;
+  font-weight: 600;
+}
+.btn--primario:hover { background: #6A08AB; border-color: #6A08AB; }
+.btn--perigo { color: var(--sev-critica); border-color: rgba(229, 72, 77, 0.4); background: rgba(229, 72, 77, 0.08); }
+.btn--perigo:hover { border-color: var(--sev-critica); }
+.btn--fantasma { background: transparent; }
+.btn--mini { padding: 5px 10px; font-size: 0.8rem; }
+
+/* =========================================================================
+   Mensagens / alertas de estado
+   ========================================================================= */
+.mensagem {
+  display: none;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: var(--raio);
+  border: 1px solid var(--line);
+  font-size: 0.9rem;
+  margin-top: 14px;
+}
+.mensagem.visivel { display: flex; }
+.mensagem--ok      { color: var(--sev-baixa);   background: rgba(79, 180, 119, 0.1);  border-color: rgba(79, 180, 119, 0.35); }
+.mensagem--erro    { color: var(--sev-critica); background: rgba(229, 72, 77, 0.1);   border-color: rgba(229, 72, 77, 0.35); }
+.mensagem--alerta  { color: var(--sev-alta);    background: rgba(232, 130, 60, 0.1);  border-color: rgba(232, 130, 60, 0.35); }
+.mensagem--info    { color: var(--sinal);       background: rgba(130, 10, 209, 0.08); border-color: rgba(130, 10, 209, 0.3); }
+
+
+/* =========================================================================
+   Cartões (home + vulnerabilidades)
+   ========================================================================= */
+.cartao-link {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--raio-g);
+  padding: 22px;
+  text-decoration: none;
+  color: var(--ink);
+  transition: border-color 0.18s, transform 0.18s;
+}
+.cartao-link:hover { border-color: var(--sinal); transform: translateY(-3px); }
+.cartao-link h3 { font-size: 1.1rem; }
+.cartao-link p { color: var(--muted); font-size: 0.9rem; margin: 0; flex: 1; }
+.cartao-link__seta { color: var(--sinal); font-size: 0.85rem; }
+.cartao-link__tags { display: flex; gap: 6px; flex-wrap: wrap; }
+
+.cartao-vuln {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--line-forte);
+  border-radius: var(--raio);
+  padding: 16px 18px;
+}
+.cartao-vuln--baixa { border-left-color: var(--sev-baixa); }
+.cartao-vuln--media { border-left-color: var(--sev-media); }
+.cartao-vuln--alta { border-left-color: var(--sev-alta); }
+.cartao-vuln--critica { border-left-color: var(--sev-critica); }
+.cartao-vuln__topo { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.cartao-vuln__cve { font-family: var(--fonte-dado); font-size: 0.85rem; color: var(--ink); }
+.cartao-vuln__desc { color: var(--muted); font-size: 0.88rem; margin: 8px 0; }
+.cartao-vuln__meta { display: flex; gap: 14px; flex-wrap: wrap; font-size: 0.8rem; color: var(--muted-2); font-family: var(--fonte-dado); }
+
+/* utilidades */
+.linha-info { display: flex; gap: 20px; flex-wrap: wrap; color: var(--muted); font-size: 0.85rem; }
+.esconder { display: none !important; }
+.txt-mono { font-family: var(--fonte-dado); }
+.txt-muted { color: var(--muted); }
+
+/* =========================================================================
+   Acessibilidade
+   ========================================================================= */
+:focus-visible { outline: 2px solid var(--sinal); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+@media (max-width: 560px) {
+  .pagina { padding: 28px 16px 60px; }
+  .painel { padding: 16px; }
+  .topo__barra { padding: 12px 16px; }
+  .status-chip { display: none; }
+}
+
+/* =========================================================================
+   Complementos da atividade 3
+   ========================================================================= */
+/* indicador dos bancos fica vermelho quando algum cai */
+.status-chip--erro { color: var(--sev-critica); border-color: rgba(229, 72, 77, 0.4); }
+.status-chip--erro .status-chip__pulso { background: var(--sev-critica); animation: none; }
+
+/* textarea no mesmo padrão dos inputs */
+.campo textarea {
+  font-family: var(--fonte-dado);
+  font-size: 0.88rem;
+  color: var(--ink);
+  background: var(--void);
+  border: 1px solid var(--line);
+  border-radius: var(--raio);
+  padding: 10px 12px;
+  width: 100%;
+  min-height: 110px;
+  resize: vertical;
+}
+.campo textarea:focus { outline: none; border-color: var(--sinal); box-shadow: 0 0 0 3px rgba(130, 10, 209, 0.15); }
+.campo--largo { grid-column: 1 / -1; }
+
+.acoes { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 16px; }
+.acoes-linha { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.acoes-linha select {
+  font-family: var(--fonte-corpo); font-size: 0.8rem; color: var(--ink);
+  background: var(--void); border: 1px solid var(--line); border-radius: var(--raio); padding: 5px 8px;
+}
+
+/* cartão de vulnerabilidade: lista de detalhes + rodapé */
+.cartao-vuln__detalhes { margin: 10px 0 0; padding-left: 18px; font-size: 0.82rem; font-family: var(--fonte-dado); }
+.cartao-vuln__rodape { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+
+/* ficha do ativo no relatório cruzado */
+.ficha { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+.ficha div { background: var(--panel-2); border: 1px solid var(--line); border-radius: var(--raio); padding: 10px 14px; }
+.ficha dt { font-size: 0.75rem; color: var(--muted); }
+.ficha dd { margin: 4px 0 0; font-family: var(--fonte-dado); }
+.tabela .acoes-linha { flex-wrap: nowrap; }
+
+/* sombra leve nas superfícies */
+.painel, .tile, .cartao-link, .cartao-vuln { box-shadow: 0 1px 3px rgba(30, 20, 48, 0.06); }
+
+/* título em letras quadradas (o componentes.js separa as letras do h1)
+   [OBS] feito com CSS porque os símbolos Unicode não têm acento */
+h1.titulo-quadrado {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;            /* espaço entre palavras */
+  font-size: clamp(1.1rem, 2.6vw, 1.6rem);
+  letter-spacing: 0;
+}
+.titulo-quadrado .palavra { display: inline-flex; gap: 4px; }
+.titulo-quadrado .letra {
+  display: inline-grid;
+  place-items: center;
+  width: 1.55em;
+  height: 1.55em;
+  border-radius: 5px;
+  background: var(--ink);
+  color: #FFFFFF;
+  font-weight: 700;
+  text-transform: uppercase;
+}

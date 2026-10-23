@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ativos — Painel de Segurança</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/estilos.css" />
+</head>
+<body data-app="ativos" data-depth="1">
+
+  <main class="pagina">
+    <section class="cabecalho-pagina">
+      <h1>Inventário de ativos</h1>
+    </section>
+
+    <!-- LISTAGEM + FILTROS (listar / buscar por setor / buscar por status) -->
+    <section class="painel">
+      <div class="painel__titulo">
+        <div>
+          <h2>Ativos cadastrados</h2>
+        </div>
+      </div>
+
+      <div class="barra-controles">
+        <div class="campo">
+          <label for="filtro-setor">Setor</label>
+          <select id="filtro-setor"><option value="">Todos os setores</option></select>
+        </div>
+        <div class="campo">
+          <label for="filtro-status">Status do patch</label>
+          <select id="filtro-status">
+            <option value="">Todos</option>
+            <option value="pendente">Pendente</option>
+            <option value="em_dia">Em dia</option>
+            <option value="critico">Crítico</option>
+          </select>
+        </div>
+        <button type="button" class="btn" id="btn-atualizar">Atualizar lista</button>
+      </div>
+
+      <div class="mensagem" id="msg-lista" role="status"></div>
+      <div class="tabela-wrap" style="margin-top:14px;">
+        <table class="tabela">
+          <thead>
+            <tr><th>Ativo</th><th>Tipo</th><th>Setor</th><th>IP interno</th><th>Verificado em</th><th>Patch</th><th>Ações</th></tr>
+          </thead>
+          <tbody id="corpo-ativos"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- CADASTRO -->
+    <section class="painel">
+      <div class="painel__titulo">
+        <div>
+          <h2>Cadastrar ativo</h2>
+        </div>
+      </div>
+      <form id="form-ativo" novalidate>
+        <div class="form-grade">
+          <div class="campo"><label for="nome_ativo">Nome do ativo</label><input id="nome_ativo" name="nome_ativo" placeholder="srv-web-02" maxlength="60" required /></div>
+          <div class="campo">
+            <label for="tipo">Tipo</label>
+            <select id="tipo" name="tipo">
+              <option value="servidor">Servidor</option>
+              <option value="estacao">Estação</option>
+              <option value="dispositivo_rede">Dispositivo de rede</option>
+            </select>
+          </div>
+          <div class="campo"><label for="ip_interno">IP interno</label><input id="ip_interno" name="ip_interno" placeholder="10.0.10.30" required /></div>
+          <div class="campo"><label for="setor_responsavel">Setor responsável</label><input id="setor_responsavel" name="setor_responsavel" placeholder="TI" maxlength="50" required /></div>
+          <div class="campo"><label for="sistema_operacional">Sistema operacional</label><input id="sistema_operacional" name="sistema_operacional" placeholder="Ubuntu Server 24.04" maxlength="60" required /></div>
+          <div class="campo"><label for="data_ultima_verificacao">Última verificação</label><input id="data_ultima_verificacao" name="data_ultima_verificacao" type="date" required /></div>
+          <div class="campo">
+            <label for="status_patch">Status do patch</label>
+            <select id="status_patch" name="status_patch">
+              <option value="pendente">Pendente</option>
+              <option value="em_dia">Em dia</option>
+              <option value="critico">Crítico</option>
+            </select>
+          </div>
+          <div class="campo"><label for="senha_acesso">Senha de acesso (opcional)</label><input id="senha_acesso" name="senha_acesso" type="password" autocomplete="new-password" placeholder="mín. 8 caracteres" /></div>
+        </div>
+        <div class="acoes">
+          <button type="submit" class="btn btn--primario" id="btn-cadastrar">Cadastrar ativo</button>
+        </div>
+        <div class="mensagem" id="msg-cadastro" role="status"></div>
+      </form>
+    </section>
+
+    <!-- SENHA DE ACESSO (definir / verificar) -->
+    <section class="painel">
+      <div class="painel__titulo">
+        <div>
+          <h2>Senha de acesso do ativo</h2>
+        </div>
+      </div>
+      <form id="form-senha" novalidate>
+        <div class="form-grade">
+          <div class="campo"><label for="senha-ativo">Ativo</label><select id="senha-ativo"></select></div>
+          <div class="campo"><label for="senha-valor">Senha</label><input id="senha-valor" type="password" autocomplete="off" /></div>
+        </div>
+        <div class="acoes">
+          <button type="button" class="btn" id="btn-definir-senha">Definir/trocar senha</button>
+          <button type="button" class="btn btn--primario" id="btn-verificar-senha">Verificar senha</button>
+        </div>
+        <div class="mensagem" id="msg-senha" role="status"></div>
+      </form>
+    </section>
+  </main>
+
+  <script src="../assets/componentes.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Relatório cruzado — Painel de Segurança</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/estilos.css" />
+</head>
+<body data-app="relatorio" data-depth="1">
+
+  <main class="pagina">
+    <section class="cabecalho-pagina">
+      <h1>Relatório cruzado</h1>
+    </section>
+
+    <section class="painel">
+      <form id="form-busca" class="barra-controles" novalidate>
+        <div class="campo">
+          <label for="nome">Nome do ativo</label>
+          <input id="nome" list="lista-nomes" placeholder="srv-web-01" autocomplete="off" />
+          <datalist id="lista-nomes"></datalist>
+        </div>
+        <button type="submit" class="btn btn--primario">Gerar relatório</button>
+      </form>
+      <div class="mensagem" id="msg-relatorio" role="status"></div>
+    </section>
+
+    <div id="resultado" class="esconder">
+      <section class="painel">
+        <div class="painel__titulo">
+          <div>
+            <h2 id="titulo-ativo"></h2>
+          </div>
+          <span id="badge-patch"></span>
+        </div>
+        <dl class="ficha" id="ficha-ativo"></dl>
+      </section>
+
+      <div class="estatisticas" style="margin-top:20px;">
+        <div class="tile tile--sinal"><div class="tile__valor" id="stat-total">0</div><div class="tile__rotulo">vulnerabilidades</div></div>
+        <div class="tile tile--alta"><div class="tile__valor" id="stat-abertas">0</div><div class="tile__rotulo">abertas</div></div>
+        <div class="tile tile--critica"><div class="tile__valor" id="stat-maior">—</div><div class="tile__rotulo">maior CVSS aberto</div></div>
+      </div>
+
+      <section class="painel">
+        <div class="painel__titulo">
+          <div>
+            <h2>Vulnerabilidades relacionadas</h2>
+          </div>
+        </div>
+        <div class="grade" id="lista-vulnerabilidades"></div>
+      </section>
+    </div>
+  </main>
+
+  <script src="../assets/componentes.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

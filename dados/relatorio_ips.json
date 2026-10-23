@@ -1,0 +1,65 @@
+{
+    "data_da_analise": "19/10/2026 19:04:06",
+    "total_de_ips": 7,
+    "consultas_na_api": 0,
+    "respostas_do_cache": 7,
+    "resumo_por_risco": {
+        "ALTO": 2,
+        "MEDIO": 3,
+        "INVALIDO": 2
+    },
+    "resultados": [
+        {
+            "ip": "8.8.8.8",
+            "risco": "ALTO",
+            "motivo": "IP de proxy, VPN ou Tor",
+            "pais": "United States",
+            "provedor": "Google LLC",
+            "origem": "cache"
+        },
+        {
+            "ip": "1.1.1.1",
+            "risco": "MEDIO",
+            "motivo": "IP de datacenter",
+            "pais": "Australia",
+            "provedor": "Cloudflare, Inc",
+            "origem": "cache"
+        },
+        {
+            "ip": "185.220.101.1",
+            "risco": "ALTO",
+            "motivo": "IP de proxy, VPN ou Tor",
+            "pais": "Germany",
+            "provedor": "Stiftung Erneuerbare Freiheit",
+            "origem": "cache"
+        },
+        {
+            "ip": "45.33.32.156",
+            "risco": "MEDIO",
+            "motivo": "IP de datacenter",
+            "pais": "United States",
+            "provedor": "Akamai Technologies, Inc.",
+            "origem": "cache"
+        },
+        {
+            "ip": "104.16.132.229",
+            "risco": "MEDIO",
+            "motivo": "IP de datacenter",
+            "pais": "Canada",
+            "provedor": "Cloudflare, Inc.",
+            "origem": "cache"
+        },
+        {
+            "ip": "192.168.0.10",
+            "risco": "INVALIDO",
+            "motivo": "private range",
+            "origem": "cache"
+        },
+        {
+            "ip": "999.999.999.999",
+            "risco": "INVALIDO",
+            "motivo": "invalid query",
+            "origem": "cache"
+        }
+    ]
+}

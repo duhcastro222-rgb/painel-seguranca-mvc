@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vulnerabilidades — Painel de Segurança</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/estilos.css" />
+</head>
+<body data-app="vulnerabilidades" data-depth="1">
+
+  <main class="pagina">
+    <section class="cabecalho-pagina">
+      <h1>Vulnerabilidades</h1>
+    </section>
+
+    <!-- LISTAGEM -->
+    <section class="painel">
+      <div class="painel__titulo">
+        <div>
+          <h2>Lista de vulnerabilidades</h2>
+        </div>
+        <div class="acoes-linha">
+          <button type="button" class="btn btn--mini" id="btn-carga">Carregar dataset</button>
+          <button type="button" class="btn btn--mini btn--perigo" id="btn-remover-corrigidas">Remover corrigidas</button>
+        </div>
+      </div>
+
+      <div class="barra-controles">
+        <div class="campo">
+          <label for="filtro-severidade">Severidade</label>
+          <select id="filtro-severidade">
+            <option value="">Todas</option>
+            <option value="critica">Crítica</option>
+            <option value="alta">Alta</option>
+            <option value="media">Média</option>
+            <option value="baixa">Baixa</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="filtro-status">Status</label>
+          <select id="filtro-status">
+            <option value="">Todos</option>
+            <option value="aberta">Aberta</option>
+            <option value="em_correcao">Em correção</option>
+            <option value="corrigida">Corrigida</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="filtro-ativo">Ativo relacionado</label>
+          <select id="filtro-ativo"><option value="">Todos os ativos</option></select>
+        </div>
+      </div>
+
+      <div class="mensagem" id="msg-lista" role="status"></div>
+      <div class="grade" id="lista-vulnerabilidades" style="margin-top:14px;"></div>
+    </section>
+
+    <!-- PROJEÇÃO -->
+    <section class="painel">
+      <div class="painel__titulo">
+        <div>
+          <h2>Consulta com projeção</h2>
+        </div>
+        <button type="button" class="btn btn--mini" id="btn-resumo">Consultar</button>
+      </div>
+      <div class="tabela-wrap">
+        <table class="tabela">
+          <thead><tr><th>CVE</th><th>Ativo relacionado</th><th class="col-num">Score CVSS</th></tr></thead>
+          <tbody id="corpo-resumo"><tr class="vazio"><td colspan="3">Clique em “Consultar”.</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- CADASTRO -->
+    <section class="painel">
+      <div class="painel__titulo">
+        <div>
+          <h2>Registrar vulnerabilidade</h2>
+        </div>
+      </div>
+      <form id="form-vuln" novalidate>
+        <div class="form-grade">
+          <div class="campo"><label for="ativo_relacionado">Ativo relacionado</label><select id="ativo_relacionado" name="ativo_relacionado"></select></div>
+          <div class="campo"><label for="cve_id">CVE (vazio = falha de configuração)</label><input id="cve_id" name="cve_id" placeholder="CVE-2026-12345" /></div>
+          <div class="campo">
+            <label for="categoria">Categoria</label>
+            <select id="categoria" name="categoria">
+              <option value="sistema_operacional">Sistema operacional</option>
+              <option value="rede">Rede</option>
+              <option value="aplicacao_web">Aplicação web</option>
+              <option value="endpoint">Endpoint</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="severidade">Severidade</label>
+            <select id="severidade" name="severidade">
+              <option value="baixa">Baixa</option>
+              <option value="media">Média</option>
+              <option value="alta">Alta</option>
+              <option value="critica">Crítica</option>
+            </select>
+          </div>
+          <div class="campo"><label for="score_cvss">Score CVSS (0 a 10)</label><input id="score_cvss" name="score_cvss" type="number" min="0" max="10" step="0.1" /></div>
+          <div class="campo">
+            <label for="status">Status</label>
+            <select id="status" name="status">
+              <option value="aberta">Aberta</option>
+              <option value="em_correcao">Em correção</option>
+              <option value="corrigida">Corrigida</option>
+            </select>
+          </div>
+          <div class="campo"><label for="data_deteccao">Data de detecção</label><input id="data_deteccao" name="data_deteccao" type="date" /></div>
+          <div class="campo campo--largo"><label for="descricao">Descrição</label><input id="descricao" name="descricao" maxlength="300" /></div>
+          <div class="campo campo--largo">
+            <label for="detalhes">Detalhes (um por linha, no formato chave: valor)</label>
+            <textarea id="detalhes" name="detalhes" placeholder="porta_afetada: 22&#10;protocolo: SSH"></textarea>
+          </div>
+        </div>
+        <div class="acoes"><button type="submit" class="btn btn--primario" id="btn-registrar">Registrar</button></div>
+        <div class="mensagem" id="msg-cadastro" role="status"></div>
+      </form>
+    </section>
+  </main>
+
+  <script src="../assets/componentes.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

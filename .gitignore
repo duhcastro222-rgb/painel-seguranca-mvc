@@ -1,0 +1,12 @@
+# credenciais nunca vão para o repositório
+.env
+.env.*
+!.env.example
+
+# arquivos gerados em tempo de execução
+dados/cache_ips.json
+dados/*.tmp
+__pycache__/
+*.pyc
+.venv/
+venv/

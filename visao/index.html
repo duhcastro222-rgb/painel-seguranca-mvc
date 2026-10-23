@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel de Segurança — Visão geral</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/estilos.css" />
+</head>
+<body data-app="index" data-depth="0">
+
+  <main class="pagina">
+    <section class="cabecalho-pagina">
+      <h1>Visão geral</h1>
+    </section>
+
+    <div class="mensagem" id="msg-inicio" role="alert"></div>
+
+    <div class="estatisticas">
+      <div class="tile tile--sinal"><div class="tile__valor" id="stat-ativos">…</div><div class="tile__rotulo">ativos (MySQL)</div></div>
+      <div class="tile tile--critica"><div class="tile__valor" id="stat-quarentena">…</div><div class="tile__rotulo">ativos em quarentena</div></div>
+      <div class="tile tile--alta"><div class="tile__valor" id="stat-vulns">…</div><div class="tile__rotulo">vulnerabilidades (MongoDB)</div></div>
+      <div class="tile tile--media"><div class="tile__valor" id="stat-abertas">…</div><div class="tile__rotulo">vulnerabilidades abertas</div></div>
+    </div>
+
+    <section class="grade" aria-label="Lista de painéis">
+      <a class="cartao-link" href="ativos/index.html">
+        <h3>Ativos</h3>
+        <span class="cartao-link__seta">Abrir painel →</span>
+      </a>
+      <a class="cartao-link" href="vulnerabilidades/index.html">
+        <h3>Vulnerabilidades</h3>
+        <span class="cartao-link__seta">Abrir painel →</span>
+      </a>
+      <a class="cartao-link" href="relatorio/index.html">
+        <h3>Relatório cruzado</h3>
+        <span class="cartao-link__seta">Abrir painel →</span>
+      </a>
+      <a class="cartao-link" href="reputacao/index.html">
+        <h3>Reputação de IPs</h3>
+        <span class="cartao-link__seta">Abrir painel →</span>
+      </a>
+    </section>
+  </main>
+
+  <script src="assets/componentes.js"></script>
+  <script src="inicio.js"></script>
+</body>
+</html>
